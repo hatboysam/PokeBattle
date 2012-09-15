@@ -28,7 +28,21 @@ class ArgumentsController < ApplicationController
   end
 
   def vote
-    voteFor = params[:vote]  
+    body = params[:body]
+    #arr = body.split(" +")
+    textcode = body
+    voting = "1"
+
+    @vote = Vote.new
+    @vote.from = params[:From]
+    @argument = Argument.find_by_textcode(textcode)
+    if (voting == "1")
+	@user = User.find_by_user_id1(@argument.user_id1)
+	@vote.post_id = @user.posts.last.id
+    elsif(voting == "2")
+	@user = User.find(@argument.user_id2)
+	@vote.post_id = @user.posts.last.id 
+    end
   end
 
   def edit
