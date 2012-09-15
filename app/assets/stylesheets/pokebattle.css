@@ -5,6 +5,7 @@
 
 body {
 	width: 100%;
+	min-height: 1100px;
 }
 
 #arena {
@@ -119,16 +120,21 @@ p.nob {
 	margin-bottom: -1em;
 }
 
-#player2 p.name {
-	position: absolute;
-	right: -10px;
-	top: -70px;
+#player1 .name {
+	position: relative;
+	top: -10px;
 }
 
-#player2 p.level {
+#player2 .name {
+	position: absolute;
+	right: -10px;
+	top: -50px;
+}
+
+#player2 .level {
 	position: absolute;
 	right: 30px;
-	top: -50px;
+	top: -30px;
 }
 
 p.level {
