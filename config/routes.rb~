@@ -6,9 +6,6 @@ PokeBattle::Application.routes.draw do
 
   resources :users
   resources :arguments do 
-	resources :posts
-	resources :votes
-  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

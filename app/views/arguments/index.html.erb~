@@ -1,0 +1,21 @@
+<h1>The current Arguments are </h1>
+
+<table>
+  <tr>
+  <td style="width: 300px;">User 1</td>
+  <td style="width: 300px;">User 2</td>
+  <td style="width: 300px;">topic</td>
+  <td style="width: 300px;">textcode</td>
+  </tr>
+
+<% @arguments.each do |argument| %>
+  <tr>
+    <td style="width: 300px;"><%= argument.user_id1 %></td>
+    <td style="width: 300px;"><%= argument.user_id2 %></td>
+    <td style="width: 300px;"><%= argument.topic %></td>
+    <td style="width: 300px;"><%= argument.textcode %></td>
+  <tr>
+<%end%>
+</table>
+
+<%= link_to 'New Argument', new_argument_path %>

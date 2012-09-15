@@ -1,0 +1,22 @@
+<h1>form ! </h1>
+
+<%= form_for(@argument) do |argument_form| %>
+
+<div class="field">
+  <%= argument_form.label :topic %><br />
+  <%= argument_form.text_field :topic %>
+</div>
+
+<div class="field">
+  <%= argument_form.label :textcode %><br />
+  <%= argument_form.text_field :textcode %>
+</div>
+
+<div class="actions">
+    <%= argument_form.submit %>
+</div>
+
+<% end %>
+
+
+
