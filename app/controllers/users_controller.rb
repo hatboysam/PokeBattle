@@ -8,6 +8,24 @@ class UsersController < ApplicationController
 		@users = User.all
 	end
 
+	def search
+		@users = User.all
+		#@users = @users.map{ |x| 
+			#{
+			#	label: x.name,
+			#	value: x.id
+			#}
+		#}
+		@users = @users.map(&:name)
+		
+		respond_to do |format|
+			format.json
+			format.js do
+				render "search.json"
+			end
+		end
+	end
+
 	def create
 		@user = User.new(params[:user])
 		if (@user.save)

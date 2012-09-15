@@ -1,21 +1,19 @@
-<h1>The current Arguments are </h1>
+<h1>Current Battles:</h1>
 
-<table>
+<table class="table">
   <tr>
-  <td style="width: 300px;">User 1</td>
-  <td style="width: 300px;">User 2</td>
-  <td style="width: 300px;">topic</td>
-  <td style="width: 300px;">textcode</td>
+  <th style="width: 300px;">Player 1</th>
+  <th style="width: 300px;">Player 2</th>
+  <th style="width: 300px;">Question</th>
   </tr>
 
 <% @arguments.each do |argument| %>
   <tr>
-    <td style="width: 300px;"><%= argument.user_id1 %></td>
-    <td style="width: 300px;"><%= argument.user_id2 %></td>
+    <td style="width: 300px;"><%= argument.user1.name %></td>
+    <td style="width: 300px;"><%= argument.user2.name %></td>
     <td style="width: 300px;"><%= link_to argument.topic, argument %></td>
-    <td style="width: 300px;"><%= argument.textcode %></td>
   <tr>
 <%end%>
 </table>
-
-<%= link_to 'New Argument', new_argument_path %>
+<br />
+<%= link_to 'New Argument', new_argument_path, :class => "btn btn-primary" %>

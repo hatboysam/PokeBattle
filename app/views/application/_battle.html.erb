@@ -1,7 +1,7 @@
 <div id="arena">
 	<div class = "playerhud" id ="player1">
 		<p class = "name nob" >
-			CHARIZARD
+			<%= @user1.name %>
 		</p>
 		<p class = "level">
 			<small>:L</small>45
@@ -23,15 +23,14 @@
 
 	<div id = "player1-text" >
 		<div class = "bubbletext" >
-			Apple deserves to patent its design because without Apple
-			everyone would be living under rocks and my life would have no purpose!
+			<%= @argument.last_post(1) %>
 		</div>
-		<div class = "timestamp" > 1 minute ago </div>
+		<div class = "timestamp" > <%= time_ago_in_words(@argument.last_post_time(1)) %> ago </div>
 	</div>
 
 	<div class = "playerhud" id ="player2">
 		<p class = "name nob" >
-			PIKACHU
+			<%= @user2.name %>
 		</p>
 		<p class = "level">
 			<small>:L</small>45
@@ -53,9 +52,9 @@
 
 	<div id = "player2-text" >
 		<div class = "bubbletext"> 
-			Fuck Apple! 
+			<%= @argument.last_post(2) %>
 		</div>
-		<div class = "timestamp" > 1 minute ago </div>
+		<div class = "timestamp" > <%= time_ago_in_words(@argument.last_post_time(2)) %> ago </div>
 	</div>
 
 	<div id = "maintext" >

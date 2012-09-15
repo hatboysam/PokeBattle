@@ -1,4 +1,7 @@
-<p>
-  <b>Content:</b>
+<li>
+  <b><%= post.user_name %>:</b>
   <%= post.content %>
-</p>
+  <p style="margin-left:10px;">
+  	<%= time_ago_in_words(post.created_at) %> ago
+  </p>
+</li>

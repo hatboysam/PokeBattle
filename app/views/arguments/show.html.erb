@@ -1,30 +1,66 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Topic:</b>
-  <%= @argument.topic %>
-</p>
-
-<p>
-  <b>Textcode:</b>
-  <%= @argument.textcode %>
-</p>
-
-
-<h1>Posts</h1>
-<%= render @argument.posts %>
-
+<h1><%= @argument.topic %></h1>
+<h4><%= link_to @user1.name, @user1 %> vs. <%= link_to @user2.name, @user2 %></h4>
 <br />
+<%= render "application/battle" %>
 
-<h1>Add a comment:</h1>
-<%= render "posts/form" %>
+<% if (signed_in? && (@argument.contains(current_user))) %>
+	<div class = "hero-unit" style="padding:15px;">
+		<h3>Add to your argument</h3>
+		<%= form_for @post do |f| %>
+			<%= f.hidden_field :user_id, :value => current_user.id %>
+			<%= f.hidden_field :argument_id, :value => @argument.id %>
+			<%= f.text_field :content %>
+			<br />
+			<%= link_to_submit "Argue" %>
+		<% end %>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('form').submit(function() {
+				var valuesToSubmit = $(this).serialize();
+				$(this).find('.btn-primary').addClass('disabled');
+				$.ajax({
+					url: $(this).attr('action'),
+					data: valuesToSubmit,
+					type: "POST"
+				}).success(function(json) {
+					alert("Submitted");
+					$(this).find('input').text("");
+					$(this).find('.btn-primary').removeClass('disabled');
+				});
+				return false;
+			});
+		});
+	</script>
 
-<br />
+<% end %>
 
-<h1>Votes for Player 1:</h1>
 
-<h1>Votes for Player 2:</h1>
+<h3>Posts</h3>
+<table class="table">
+<tr>
+	<th><%= @user1.name %></th>
+	<th><%= @user2.name %></th>
+</tr>
+<tr>
+	<td style="width:400px;">
+		<ul>
+			<%= render @user1.desc_posts %>
+			<% if @user1.posts.empty? %>
+				<li>No posts yet...</li>
+			<% end %>
+		</ul>
+	</td>
+	<td style="width:400px;">
+		<ul>
+			<%= render @user2.desc_posts %>
+			<% if @user2.posts.empty? %>
+				<li>No posts yet...</li>
+			<% end %>
+		</ul>
+	</td>
+</tr>
+</table>
 
-<br /> <br />
-
-<%= link_to 'Back', arguments_path %>
+<%= link_to 'Back to arguments', arguments_path, :class => "btn"%>
+<br /><br />

@@ -3,13 +3,26 @@ PokeBattle::Application.routes.draw do
   root :to => "application#index"
 
   get "signup" => "users#new", :as => "signup"
+  get "signin" => "sessions#new", :as => "signin"
+  get "signout" => "sessions#destroy", :as => "signout"
 
   post "/arguments/:id" => "arguments#vote"
 
-  resources :users
+  get "/users/search" => "users#search"
+
+  resources :users do
+    collection do
+      get "search"
+    end
+  end
+
+  resources :posts
+
+  resources :sessions
+
   resources :arguments do 
-	resources :posts
-	resources :votes
+	 resources :posts
+	 resources :votes
   end
 
   # The priority is based upon order of creation:

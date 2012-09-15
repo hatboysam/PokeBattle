@@ -1,19 +1,25 @@
-<h1>form ! </h1>
-
 <%= form_for(@argument) do |argument_form| %>
 
 <div class="field">
-  <%= argument_form.label :topic %><br />
+  <h2>Question:</h2>
   <%= argument_form.text_field :topic %>
 </div>
+<br />
 
-<div class="field">
-  <%= argument_form.label :textcode %><br />
-  <%= argument_form.text_field :textcode %>
-</div>
+<h2 style="display:inline">You vs.</h2>
+<br />
+<select name="argument[user_id2]">
+ 	<%= @users.each do |user| %>
+ 		<% if user.id != current_user.id %>
+ 			<option value="<%= user.id %>"><%= user.name %></option>
+ 		<% end %>
+ 	<% end %>
+ </select>
 
+<br />
+<br />
 <div class="actions">
-    <%= argument_form.submit %>
+    <%= argument_form.submit :class => "btn btn-primary" %>
 </div>
 
 <% end %>

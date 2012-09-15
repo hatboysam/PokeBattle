@@ -21,6 +21,9 @@ gem 'jquery-rails'
 #Postgres
 gem 'pg'
 
+#Bcrypt
+gem 'bcrypt-ruby'
+
 #Twitter Bootstrap
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 

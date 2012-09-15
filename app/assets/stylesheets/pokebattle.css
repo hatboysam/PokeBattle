@@ -14,7 +14,7 @@ body {
 	margin-right: auto;
 	margin-left: auto;
 	width: 960px;
-	height: 600px;
+	height: 650px;
 	padding: 5px;
 }
 
@@ -182,4 +182,16 @@ p.level {
 	height: 100%;
 	transition: background-color 1s;
 	-webkit-transition: background-color 1s;
+}
+
+
+/**
+* Non Battle
+**/
+
+#argument_topic {
+	width: 100%;
+	padding: 5px;
+	height: 30px;
+	font-size: x-large;
 }
