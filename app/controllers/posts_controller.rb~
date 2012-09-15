@@ -1,0 +1,13 @@
+class PostsController < ApplicationController
+
+def create
+    @argument = Argument.find(params[:argument_id])
+    @post = @argument.posts.create(params[:post])
+    redirect_to argument_path(@post)
+end
+
+def destroy
+
+end
+
+end

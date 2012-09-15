@@ -12,7 +12,7 @@
   <tr>
     <td style="width: 300px;"><%= argument.user_id1 %></td>
     <td style="width: 300px;"><%= argument.user_id2 %></td>
-    <td style="width: 300px;"><%= argument.topic %></td>
+    <td style="width: 300px;"><%= link_to argument.topic, @argument %></td>
     <td style="width: 300px;"><%= argument.textcode %></td>
   <tr>
 <%end%>

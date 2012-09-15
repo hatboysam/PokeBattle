@@ -4,6 +4,8 @@ PokeBattle::Application.routes.draw do
 
   get "signup" => "users#new", :as => "signup"
 
+  post "/arguments/:id" => "arguments#vote"
+
   resources :users
   resources :arguments do 
 	resources :posts

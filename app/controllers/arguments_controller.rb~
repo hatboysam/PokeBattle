@@ -18,7 +18,10 @@ class ArgumentsController < ApplicationController
       format.html # new.html.erb
       format.json { render :json => @argument }
     end
+  end
 
+  def vote
+      
   end
 
   def edit
@@ -36,9 +39,9 @@ class ArgumentsController < ApplicationController
         format.json { render :json => @argument.errors, :status => :unprocessable_entity }
       end
     end
-
-
   end
+
+
 
   def update
 

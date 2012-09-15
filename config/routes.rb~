@@ -4,8 +4,15 @@ PokeBattle::Application.routes.draw do
 
   get "signup" => "users#new", :as => "signup"
 
+  post "/arguments/:id?vote=1" => "arguments#vote"
+
+  post "/arguments/:id?vote=2" => "arguments#vote"
+
   resources :users
   resources :arguments do 
+	resources :posts
+	resources :votes
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
