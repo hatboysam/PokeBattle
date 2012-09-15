@@ -1,0 +1,179 @@
+@font-face {
+	font-family: pokemon;
+	src: url('/assets/pokemon.ttf');
+}
+
+body {
+	width: 100%;
+}
+
+#arena {
+	position: relative;
+	font-family: pokemon;
+	margin-right: auto;
+	margin-left: auto;
+	width: 960px;
+	height: 600px;
+	padding: 5px;
+}
+
+#maintext {
+	position: absolute;
+	min-width: 900px;
+	min-height: 60px;
+	padding: 10px;
+	bottom: 30px;
+	left: 20px;
+	background-color: white;
+	border: double 6px black;
+	border-radius: 4px;
+}
+
+.playerhud {
+	position: relative;
+}
+
+#player1 {
+	position: absolute;
+	top: 10px;
+	left: 20px;
+}
+
+
+#player2 {
+	position: absolute;
+	top: 420px;
+	right: 40px;
+}
+
+#player1-img {
+	position: absolute;
+	top: 100px;
+	left: 0px;
+}
+
+#player2-img{
+	position: absolute;
+	top: 260px;
+	right: 0px;
+}
+
+
+#player2-img img, #player1-img img {
+	width: 150px;
+	height: 150px;
+}
+
+.rocks {
+	position: absolute;
+	top: -50px;
+	left: 0px;
+	visibility: hidden;
+}
+
+#player1-text{
+	position: absolute;
+	top: 100px;
+	left: 360px;
+}
+
+#player2-text {
+	position: absolute;
+	top: 360px;
+	right: 480px;
+	text-align: right;
+}
+
+#player1-text, #player2-text {
+	width: 400px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 3px;
+	font-size: small;
+	border: solid 1px black;
+	border-radius: 5px;
+}
+
+.bubbletext {
+	padding-bottom: 10px;
+}
+
+.timestamp {
+	position: absolute;
+	bottom: 0px;
+	padding: 3px;
+	font-size: 6pt;
+	color: #2D2D2D;
+}
+
+#player1-text .timestamp {
+	right: 0px;
+}
+
+#player2-text .timestamp {
+	left: 0px;
+}
+
+p.nob {
+	margin-bottom: -1em;
+}
+
+#player2 p.name {
+	position: absolute;
+	right: -10px;
+	top: -70px;
+}
+
+#player2 p.level {
+	position: absolute;
+	right: 30px;
+	top: -50px;
+}
+
+p.level {
+	margin-left: 40px;
+}
+
+.health {
+	margin-top: -15px;
+	margin-left: 10px;
+	border-radius: 4px;
+	padding-left: 5px;
+	width: 200px;
+}
+
+.health-right {
+	border-bottom: 4px solid black;
+	border-left: 4px solid black;
+}
+
+.health-left {
+	border-bottom: 4px solid black;
+	border-right: 4px solid black;
+}
+
+.health-left .hp {
+	margin-left: 35px;
+}
+
+.hp {
+	font-size: x-small;
+	font-weight: bold;
+	margin-right: 5px;
+}
+
+.hp-bar {
+	height: 7px;
+	width: 120px;
+	margin-left: -10px;
+	display: inline-block;
+	border: solid 1px black;
+	border-radius: 4px;
+}
+
+.hp-bar-fill {
+	height: 100%;
+	transition: background-color 1s;
+	-webkit-transition: background-color 1s;
+}
