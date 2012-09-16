@@ -45,10 +45,12 @@ class ArgumentsController < ApplicationController
       @user = User.find(@argument.user_id1)
       @vote.post_id = @user.posts.last.id
       @vote.user_id = @user.id
+      @vote.save()
     elsif(voting == "2")
       @user = User.find(@argument.user_id2)
       @vote.post_id = @user.posts.last.id 
       @vote.user_id = @user.id
+      @vote.save()
     end
   end
 
