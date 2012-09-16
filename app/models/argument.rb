@@ -6,7 +6,7 @@ class Argument < ActiveRecord::Base
 	has_many :posts
 	has_many :userstatuses
 
-	after_commit :createUS
+	after_save :createUS
 
 	def user1
 		User.find(self.user_id1)
@@ -25,7 +25,7 @@ class Argument < ActiveRecord::Base
 	end
 
 	def winnerName
-		if (self.winner_id != 0)
+		if (self.winner_id != 0  && !self.winner_id.nil?)
 			user = User.find(self.winner_id)
 			return user.name
 		else
