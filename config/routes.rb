@@ -27,6 +27,7 @@ resources :arguments do
       get 'start'
       get 'healthstatus'
       get 'end'
+      get 'votes'
     end
 end
 

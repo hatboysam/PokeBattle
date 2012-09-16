@@ -21,6 +21,9 @@ class ArgumentsController < ApplicationController
     @us1 = @argument.us1
     @us2 = @argument.us2
 
+    @votecount1 = @argument.votesFor(1)
+    @votecount2 = @argument.votesFor(2)
+
     @post = Post.new
   end
 
@@ -51,6 +54,17 @@ class ArgumentsController < ApplicationController
       @vote.post_id = @argument.last_post_full(2).id
       @vote.user_id = @user.id
       @vote.save()
+    end
+  end
+
+  def votes
+    @argument = Argument.find(params[:id])
+
+    @votecount1 = @argument.votesFor(1)
+    @votecount2 = @argument.votesFor(2)
+
+    respond_to do |format|
+      format.json
     end
   end
 

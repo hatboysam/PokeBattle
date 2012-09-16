@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
 
   	@us1 = @argument.us1
   	@us2 = @argument.us2
+
+  	@votecount1 = @argument.votesFor(1)
+    @votecount2 = @argument.votesFor(2)
   end
 
 end

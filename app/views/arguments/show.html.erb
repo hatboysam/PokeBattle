@@ -101,6 +101,19 @@
 		});
 	}
 
+	function fetchVotes() {
+		$.ajax({
+			accepts: "application/json",
+			url : "<%= @argument.id %>" + "/votes.json"
+		}).success(function(json) {
+			v1 = json.votes1;
+			v2 = json.votes2;
+			$("#vote1").text(v1);
+			$("#vote2").text(v2);
+			setTimeout(fetchVotes, 1000);
+		});
+	}
+
 	function process(h1,h2) {
 		if ((h1 != window.health1) && (h2 != window.health2)) {
 			console.log("h1: " + h1);
@@ -140,6 +153,7 @@
 			fetchPostTable();
 			fetchFirstPosts();
 			fetchHealth();
+			fetchVotes();
 		}
 	});
 </script>

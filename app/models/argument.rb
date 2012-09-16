@@ -157,6 +157,18 @@ class Argument < ActiveRecord::Base
 		end
 	end
 
+	def votesFor(user)
+		if (user ==1 )
+			postsIDs1 = self.posts.where(:user_id => self.user_id1).map(&:id)
+	    	votecount1 = Vote.where(:post_id => postsIDs1).count
+	    	return votecount1
+	    else
+	    	postsIDs2 = self.posts.where(:user_id => self.user_id2).map(&:id)
+			votecount2 = Vote.where(:post_id => postsIDs2).count
+			return votecount2
+		end
+	end
+
 	def newVotes
 		postIds = self.posts.map(&:id)
 		allVotes = Vote.where(:post_id => postIds)
