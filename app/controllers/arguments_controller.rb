@@ -28,7 +28,7 @@ class ArgumentsController < ApplicationController
   end
 
   def vote
-    body = params[:body]
+    body = params[:Body]
     #arr = body.split(" +")
     textcode = body.split(" ").first
     voting = body.split(" ").last
