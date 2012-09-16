@@ -26,6 +26,7 @@ resources :arguments do
       get 'firstposts'
       get 'start'
       get 'healthstatus'
+      get 'end'
     end
 end
 

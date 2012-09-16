@@ -10,7 +10,7 @@ namespace :db do
 					puts ("Updated " + argument.topic)
 				end
 			end
-			sleep 2
+			sleep 20
 		end
 	end
 

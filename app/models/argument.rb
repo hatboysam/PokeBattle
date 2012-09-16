@@ -24,6 +24,15 @@ class Argument < ActiveRecord::Base
 		Userstatus.where(:argument_id => self.id, :user_id => self.user_id2).first
 	end
 
+	def winnerName
+		if (self.winner_id != 0)
+			user = User.find(self.winner_id)
+			return user.name
+		else
+			return "Tie"
+		end
+	end
+
 	def createUS
 		us1 = Userstatus.new()
 		us1.user_id = self.user_id1

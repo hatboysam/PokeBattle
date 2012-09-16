@@ -1,14 +1,29 @@
 <h1><%= @argument.topic %></h1>
-<p style="font-size:x-large;font-weight:bold;">Text (484) 303-4250.</p>  
-<p style="font-size:x-large;font-weight:bold;">
-	<span style="color:red;"><%= @argument.textcode %> 1</span> for <%= @user1.name %> | 
-	<span style="color:blue;"><%= @argument.textcode %> 2</span> for <%= @user2.name %></p>
-<br />
+
+<% if @running %>
+	<p style="font-size:x-large;font-weight:bold;">Text (484) 303-4250.</p>  
+	<p style="font-size:x-large;font-weight:bold;">
+		<span style="color:red;"><%= @argument.textcode %> 1</span> for <%= @user1.name %> | 
+		<span style="color:blue;"><%= @argument.textcode %> 2</span> for <%= @user2.name %></p>
+	<br />
+<% else %>
+<h3>The winner is: <%= @argument.winnerName %></h3>
+<% end %>
+
+
 <h4><%= link_to @user1.name, @user1 %> vs. <%= link_to @user2.name, @user2 %></h4>
 <br />
+
+<% if !@argument.started %>
+	<div class = "hero-unit" id = "start_match_div" style = "padding:15px;" >
+		<h3> Start the match </h3>
+		<a href="#" id="start_match" class="btn btn-primary">Click Here</a>
+	</div>
+<% end %>
+
 <%= render "application/battle" %>
 
-<% if (signed_in? && (@argument.contains(current_user))) %>
+<% if (signed_in? && (@argument.contains(current_user)) && @running) %>
 	<div class = "hero-unit" style="padding:15px;">
 		<h3>Add to your argument</h3>
 		<%= form_for @post do |f| %>
@@ -20,23 +35,31 @@
 		<% end %>
 	</div>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('form').submit(function() {
-			var valuesToSubmit = $(this).serialize();
-			$(this).find('.btn-primary').addClass('disabled');
-			$.ajax({
-				url: $(this).attr('action'),
-				data: valuesToSubmit,
-				type: "POST"
-			}).complete(function(json) {
-				$('#post_content').text("");
-				$('.btn-primary').removeClass('disabled');
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('form').submit(function() {
+				var valuesToSubmit = $(this).serialize();
+				$(this).find('.btn-primary').addClass('disabled');
+				$.ajax({
+					url: $(this).attr('action'),
+					data: valuesToSubmit,
+					type: "POST"
+				}).complete(function(json) {
+					$('#post_content').text("");
+					$('.btn-primary').removeClass('disabled');
+				});
+				return false;
 			});
-			return false;
+
+			$('#start_match').click(function() {
+				$.ajax({
+					url : "<%= @argument.id %>" + "/start"
+				}).success(function(data) {
+					$("#start_match_div").slideUp();
+				});
+			});
 		});
-	});
-</script>
+	</script>
 
 <% end %>
 
@@ -79,36 +102,45 @@
 	}
 
 	function process(h1,h2) {
-		if (h1 != window.health1 && h2 != window.health2) {
+		if ((h1 != window.health1) && (h2 != window.health2)) {
+			console.log("h1: " + h1);
+			console.log("h2: " + h2);
 			diff1 = window.health1 - h1;
 			diff2 = window.health2 - h2;
 			window.health1 = h1;
 			window.health2 = h2;
 			p1attack(diff2);
-			setTimeout(p2attack(diff1), 2000);
-
+			setTimeout(function() {p2attack(diff1);}, 3000);
 		} else if (h1 != window.health1) {
 			diff = window.health1 - h1;
 			window.health1 = h1;
-			p2attack(diff);
-			
+			p2attack(diff);		
 		} else if (h2 != window.health2) {
 			diff = window.health2 - h2;			
 			window.health2 = h2;
 			p1attack(diff);	
 		}
+
+		//Check for death
+		if (window.health1 <= 0 || window.health2 <= 0) {
+			document.location.href = "/arguments/" + "<%= @argument.id %>" + "/end" 
+		}
 	}
 
 	$(document).ready(function() {
-		window.health1 = <%= @us1.health %>;
-		window.health2 = <%= @us2.health %>;
+		h1 = <%= @us1.health %>;
+		h2 = <%= @us2.health %>;
 
-		sethp1(<%= @us1.health %>);
-		sethp2(<%= @us2.health %>);
+		window.health1 = h1;
+		window.health2 = h2;
 
-		fetchPostTable();
-		fetchFirstPosts();
-		fetchHealth();
+		sethp1(h1);
+		sethp2(h2);
+		if ((h1 > 0) && (h2 > 0)) {
+			fetchPostTable();
+			fetchFirstPosts();
+			fetchHealth();
+		}
 	});
 </script>
 

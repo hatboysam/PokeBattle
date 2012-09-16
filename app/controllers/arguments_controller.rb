@@ -13,6 +13,8 @@ class ArgumentsController < ApplicationController
 
   def show
     @argument = Argument.find(params[:id])
+    @running = Argument.isRunning(@argument.id)
+
     @user1 = User.find(@argument.user_id1)
     @user2 = User.find(@argument.user_id2)
 
@@ -102,7 +104,21 @@ class ArgumentsController < ApplicationController
     @argument = Argument.find(params[:id])
     @argument.started = true
     @argument.save()
-    @argument.startProcess
+  end
+
+  def end
+    @argument = Argument.find(params[:id])
+    @us1 = @argument.us1
+    @us2 = @argument.us2
+    if (@us1.health > @us2.health)
+      @argument.winner_id = @us1.user_id
+    elsif(@us2.health > @us1.health)
+      @argument.winner_id = @us2.user_id
+    else
+      @argument.winner_id = 0
+    end
+    @argument.save()
+    redirect_to @argument
   end
 
   def update
