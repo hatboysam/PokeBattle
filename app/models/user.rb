@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
 		find_by_email(email).try(:authenticate, password)
 	end
 
-	def desc_posts
-		self.posts.order("created_at desc")
+	def desc_posts(argid)
+		self.posts.where(:argument_id => argid).order("created_at desc")
 	end
 	
 end

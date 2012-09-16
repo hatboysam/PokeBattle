@@ -6,6 +6,8 @@ class Argument < ActiveRecord::Base
 	has_many :posts
 	has_many :userstatuses
 
+	after_commit :createUS
+
 	def user1
 		User.find(self.user_id1)
 	end
@@ -138,10 +140,10 @@ class Argument < ActiveRecord::Base
 	def last_post(user)
 		post = "No way!"
 		if (user == 1)
-			lastu1 = user1.posts.last
+			lastu1 = user1.posts.where(:argument_id => self.id).last
 			post = lastu1.content unless lastu1.nil?
 		else
-			lastu2 = user2.posts.last
+			lastu2 = user2.posts.where(:argument_id => self.id).last
 			post = lastu2.content unless lastu2.nil?
 		end
 		return post

@@ -26,14 +26,13 @@ class ArgumentsController < ApplicationController
     @argument = Argument.new
     @users = User.all
     respond_to do |format|
-      format.html #new.html.erb
-      format.json { render :json => @argument }
+      format.html
+      format.json
     end
   end
 
   def vote
     body = params[:Body]
-    #arr = body.split(" +")
     textcode = body.split(" ").first
     voting = body.split(" ").last
 
@@ -41,13 +40,13 @@ class ArgumentsController < ApplicationController
     @vote.from = params[:From]
     @argument = Argument.find_by_textcode(textcode)
     if (voting == "1")
-	   @user = User.find(@argument.user_id1)
-	   @vote.post_id = @user.posts.last.id
-     @vote.user_id = @user.id
+      @user = User.find(@argument.user_id1)
+      @vote.post_id = @user.posts.last.id
+      @vote.user_id = @user.id
     elsif(voting == "2")
-	   @user = User.find(@argument.user_id2)
-	   @vote.post_id = @user.posts.last.id 
-     @vote.user_id = @user.id
+      @user = User.find(@argument.user_id2)
+      @vote.post_id = @user.posts.last.id 
+      @vote.user_id = @user.id
     end
   end
 
@@ -63,16 +62,10 @@ class ArgumentsController < ApplicationController
     @argument = Argument.new(params[:argument])
     @argument.textcode = rand(8999) + 1000
     @argument.user_id1 = current_user.id
-
-    respond_to do |format|
-      if @argument.save
-        @argument.createUS
-        format.html { redirect_to @argument, :notice => 'Post was successfully created.' }
-        format.json { render :json => @argument, :status => :created, :location => @argument }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @argument.errors, :status => :unprocessable_entity }
-      end
+    if @argument.save()
+      redirect_to argument_path(@argument)
+    else
+      redirect_to "/arguments/new"
     end
   end
 
@@ -99,14 +92,17 @@ class ArgumentsController < ApplicationController
     end
   end
 
+  def healthstatus
+    @argument = Argument.find(params[:id])
+    @us1 = @argument.us1
+    @us2 = @argument.us2
+  end
+
   def start
     @argument = Argument.find(params[:id])
     @argument.started = true
     @argument.save()
-
     @argument.startProcess
-
-    #RENDER SOMETHING
   end
 
   def update

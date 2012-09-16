@@ -21,11 +21,11 @@ resources :posts
 resources :sessions
 
 resources :arguments do 
-  resources :votes
     member do
       get 'posts'
       get 'firstposts'
       get 'start'
+      get 'healthstatus'
     end
 end
 
