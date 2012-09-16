@@ -116,7 +116,7 @@ class Argument < ActiveRecord::Base
 			#hit p2 with toAdd
 			p2status = argument.us2
 			currentHealth = p2status.health
-			newHealth = [0,(currentHealth-toAdd)].min
+			newHealth = [0,(currentHealth-toAdd)].max
 			p2status.health = newHealth
 			p2status.save()
 		elsif (countForP2 > countForP1)
@@ -129,7 +129,7 @@ class Argument < ActiveRecord::Base
 			#hit p1 with toAdd
 			p1status = argument.us1
 			currentHealth = p1status.health
-			newHealth = [0,(currentHealth-toAdd)].min
+			newHealth = [0,(currentHealth-toAdd)].max
 			p1status.health = newHealth
 			p1status.save()
 		else
