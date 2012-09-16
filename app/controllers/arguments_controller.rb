@@ -41,11 +41,13 @@ class ArgumentsController < ApplicationController
     @vote.from = params[:From]
     @argument = Argument.find_by_textcode(textcode)
     if (voting == "1")
-	@user = User.find(@argument.user_id1)
-	@vote.post_id = @user.posts.last.id
+	   @user = User.find(@argument.user_id1)
+	   @vote.post_id = @user.posts.last.id
+     @vote.user_id = @user.id
     elsif(voting == "2")
-	@user = User.find(@argument.user_id2)
-	@vote.post_id = @user.posts.last.id 
+	   @user = User.find(@argument.user_id2)
+	   @vote.post_id = @user.posts.last.id 
+     @vote.user_id = @user.id
     end
   end
 

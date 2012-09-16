@@ -39,15 +39,26 @@ class Argument < ActiveRecord::Base
 	def startProcess
 		argId = self.id
 		t = Thread.new do
-
-			ActiveRecord::Base.establish_connection(
-				  :adapter => "sqlite3",
-  				  :database => "db/development.sqlite3"
-  			)
+			if ENV['RAILS_ENV'] == 'development'
+				ActiveRecord::Base.establish_connection(
+				   :adapter => "sqlite3",
+	  			   :database => "db/development.sqlite3"
+	  			)
+			else
+				ActiveRecord::Base.establish_connection(
+				  :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+				  :host     => db.host,
+				  :port     => db.port,
+				  :username => db.user,
+				  :password => db.password,
+				  :database => db.path[1..-1],
+				  :encoding => 'utf8'
+				)
+			end
 
 			while (Argument.isRunning(argId)) do
 				begin
-					sleep 20
+					sleep 15
 					Argument.update(argId)
 					Argument.markVotes(argId)
 					puts "Thread ran"
