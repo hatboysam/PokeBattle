@@ -31,6 +31,20 @@ class Argument < ActiveRecord::Base
 		end
 	end
 
+	def noWayPosts
+		@p1 = Post.new()
+		@p1.user_id = self.user_id1
+		@p1.argument_id = self.id
+		@p1.content = "No way!"
+		@p1.save()
+
+		@p2 = Post.new()
+		@p2.user_id = self.user_id2
+		@p2.argument_id = self.id
+		@p2.content = "No way!"
+		@p2.save()
+	end
+
 	def createUS
 		us1 = Userstatus.new()
 		us1.user_id = self.user_id1
@@ -161,6 +175,18 @@ class Argument < ActiveRecord::Base
 		end
 		return post
 	end
+
+	def last_post_full(user)
+		if (user == 1)
+			lastu1 = user1.posts.where(:argument_id => self.id).last
+			return lastu1
+		else
+			lastu2 = user2.posts.where(:argument_id => self.id).last
+			return lastu2
+		end
+	end
+	
+
 
 	def last_post_time(user)
 		lastTime = 1.minute.ago

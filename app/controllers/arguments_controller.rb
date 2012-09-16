@@ -43,12 +43,12 @@ class ArgumentsController < ApplicationController
     @argument = Argument.find_by_textcode(textcode)
     if (voting == "1")
       @user = User.find(@argument.user_id1)
-      @vote.post_id = @user.posts.last.id
+      @vote.post_id = @argument.last_post_full(1).id
       @vote.user_id = @user.id
       @vote.save()
     elsif(voting == "2")
       @user = User.find(@argument.user_id2)
-      @vote.post_id = @user.posts.last.id 
+      @vote.post_id = @argument.last_post_full(2).id
       @vote.user_id = @user.id
       @vote.save()
     end
@@ -68,6 +68,7 @@ class ArgumentsController < ApplicationController
     @argument.user_id1 = current_user.id
     if @argument.save()
       @argument.createUS
+      @argument.noWayPosts
       redirect_to argument_path(@argument)
     else
       redirect_to "/arguments/new"
