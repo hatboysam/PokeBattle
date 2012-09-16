@@ -24,6 +24,9 @@ gem 'jquery-rails'
 #Bcrypt
 gem 'bcrypt-ruby'
 
+#Threads
+gem 'fastthread'
+
 #Twitter Bootstrap
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 

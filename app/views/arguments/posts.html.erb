@@ -1,0 +1,24 @@
+<table class="table">
+<tr>
+	<th><%= @user1.name %></th>
+	<th><%= @user2.name %></th>
+</tr>
+<tr>
+	<td style="width:400px;">
+		<ul>
+			<%= render @user1.desc_posts %>
+			<% if @user1.posts.empty? %>
+				<li>No posts yet...</li>
+			<% end %>
+		</ul>
+	</td>
+	<td style="width:400px;">
+		<ul>
+			<%= render @user2.desc_posts %>
+			<% if @user2.posts.empty? %>
+				<li>No posts yet...</li>
+			<% end %>
+		</ul>
+	</td>
+</tr>
+</table>

@@ -14,53 +14,88 @@
 			<%= link_to_submit "Argue" %>
 		<% end %>
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('form').submit(function() {
-				var valuesToSubmit = $(this).serialize();
-				$(this).find('.btn-primary').addClass('disabled');
-				$.ajax({
-					url: $(this).attr('action'),
-					data: valuesToSubmit,
-					type: "POST"
-				}).success(function(json) {
-					alert("Submitted");
-					$(this).find('input').text("");
-					$(this).find('.btn-primary').removeClass('disabled');
-				});
-				return false;
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('form').submit(function() {
+			var valuesToSubmit = $(this).serialize();
+			$(this).find('.btn-primary').addClass('disabled');
+			$.ajax({
+				url: $(this).attr('action'),
+				data: valuesToSubmit,
+				type: "POST"
+			}).complete(function(json) {
+				$('#post_content').text("");
+				$('.btn-primary').removeClass('disabled');
 			});
+			return false;
 		});
-	</script>
+	});
+</script>
 
 <% end %>
 
+<script type="text/javascript">
+	function fetchPostTable() {
+		$.ajax({
+			accepts: "text/html",
+			url : "<%= @argument.id %>" + "/posts.html"
+		}).success(function(html) {
+			$("#post_table").html(html);
+
+			setTimeout(fetchPostTable, 1500);
+		});
+	}
+
+	function fetchFirstPosts() {
+		$.ajax({
+			accepts: "application/json",
+			url : "<%= @argument.id %>" + "/firstposts.json"
+		}).success(function(json) {
+			$("#player1-text .bubbletext").text(json.u1content);
+			$("#player1-text .timestamp").text(json.u1stamp);
+			$("#player2-text .bubbletext").text(json.u2content);
+			$("#player2-text .timestamp").text(json.u2stamp);
+
+			setTimeout(fetchFirstPosts, 1500);
+		});
+	}
+
+	$(document).ready(function() {
+		fetchPostTable();
+		fetchFirstPosts();
+		sethp1(<%= @us1.health %>);
+		sethp2(<%= @us2.health %>);
+	});
+</script>
 
 <h3>Posts</h3>
-<table class="table">
-<tr>
-	<th><%= @user1.name %></th>
-	<th><%= @user2.name %></th>
-</tr>
-<tr>
-	<td style="width:400px;">
-		<ul>
-			<%= render @user1.desc_posts %>
-			<% if @user1.posts.empty? %>
-				<li>No posts yet...</li>
-			<% end %>
-		</ul>
-	</td>
-	<td style="width:400px;">
-		<ul>
-			<%= render @user2.desc_posts %>
-			<% if @user2.posts.empty? %>
-				<li>No posts yet...</li>
-			<% end %>
-		</ul>
-	</td>
-</tr>
-</table>
+<div id="post_table">
+	<table class="table">
+	<tr>
+		<th><%= @user1.name %></th>
+		<th><%= @user2.name %></th>
+	</tr>
+	<tr>
+		<td style="width:400px;">
+			<ul>
+				<%= render @user1.desc_posts %>
+				<% if @user1.posts.empty? %>
+					<li>No posts yet...</li>
+				<% end %>
+			</ul>
+		</td>
+		<td style="width:400px;">
+			<ul>
+				<%= render @user2.desc_posts %>
+				<% if @user2.posts.empty? %>
+					<li>No posts yet...</li>
+				<% end %>
+			</ul>
+		</td>
+	</tr>
+	</table>
+</div>
 
 <%= link_to 'Back to arguments', arguments_path, :class => "btn"%>
 <br /><br />

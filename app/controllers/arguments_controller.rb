@@ -15,6 +15,10 @@ class ArgumentsController < ApplicationController
     @argument = Argument.find(params[:id])
     @user1 = User.find(@argument.user_id1)
     @user2 = User.find(@argument.user_id2)
+
+    @us1 = @argument.us1
+    @us2 = @argument.us2
+
     @post = Post.new
   end
 
@@ -60,6 +64,7 @@ class ArgumentsController < ApplicationController
 
     respond_to do |format|
       if @argument.save
+        @argument.createUS
         format.html { redirect_to @argument, :notice => 'Post was successfully created.' }
         format.json { render :json => @argument, :status => :created, :location => @argument }
       else
@@ -69,7 +74,38 @@ class ArgumentsController < ApplicationController
     end
   end
 
+  def posts
+    @argument = Argument.find(params[:id])
+    @user1 = @argument.user1
+    @user2 = @argument.user2
+    @u1posts = @argument.json_posts(1)
+    @u2posts = @argument.json_posts(2)
 
+    respond_to do |format|
+      format.json
+      format.html { render :layout => false }
+    end
+    
+  end
+
+  def firstposts
+    @argument = Argument.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
+  end
+
+  def start
+    @argument = Argument.find(params[:id])
+    @argument.started = true
+    @argument.save()
+
+    @argument.startProcess
+
+    #RENDER SOMETHING
+  end
 
   def update
 

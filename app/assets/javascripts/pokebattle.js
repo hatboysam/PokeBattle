@@ -185,9 +185,6 @@ function colorForHp(hp) {
 }
 
 $(document).ready(function() {
-	//Set initial HP
-	sethp1(100);
-	sethp2(100);
 	//Slide in characters
 	//P1 - top100, left160
 	$("#player1-img").animate({
