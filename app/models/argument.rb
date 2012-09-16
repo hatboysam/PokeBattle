@@ -95,7 +95,10 @@ class Argument < ActiveRecord::Base
 		if (countForP1 > countForP2)
 			puts "p1more"
 			ratio = (((countForP1.to_f / total.to_f) - 0.5) * 100).to_i
+			//min 15
 			toAdd = [15,ratio].max
+			//max 50
+			toAdd = [50, toAdd].min
 			#hit p2 with toAdd
 			p2status = argument.us2
 			currentHealth = p2status.health
@@ -105,7 +108,10 @@ class Argument < ActiveRecord::Base
 		elsif (countForP2 > countForP1)
 			puts "p2more"
 			ratio = (((countForP2.to_f / total.to_f) - 0.5) * 100).to_i
+			//min 15
 			toAdd = [15,ratio].max
+			//max 50
+			toAdd = [50, toAdd].min
 			#hit p1 with toAdd
 			p1status = argument.us1
 			currentHealth = p1status.health
