@@ -67,6 +67,7 @@ class ArgumentsController < ApplicationController
     @argument.textcode = rand(8999) + 1000
     @argument.user_id1 = current_user.id
     if @argument.save()
+      @argument.createUS
       redirect_to argument_path(@argument)
     else
       redirect_to "/arguments/new"

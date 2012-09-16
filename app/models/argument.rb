@@ -6,8 +6,6 @@ class Argument < ActiveRecord::Base
 	has_many :posts
 	has_many :userstatuses
 
-	after_save :createUS
-
 	def user1
 		User.find(self.user_id1)
 	end
